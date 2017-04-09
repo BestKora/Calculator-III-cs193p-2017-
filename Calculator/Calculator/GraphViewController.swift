@@ -7,7 +7,7 @@ import UIKit
 
 class GraphViewController: UIViewController {
     
-    var yForX: ((Double) -> Double)?{ didSet { updateUI() } }
+    var yForX: ((Double) -> Double?)?{ didSet { updateUI() } }
     
     @IBOutlet weak var graphView: GraphView!{ didSet {
         graphView.addGestureRecognizer(UIPinchGestureRecognizer(
@@ -28,13 +28,12 @@ class GraphViewController: UIViewController {
     
     func updateUI() {
         graphView?.yForX = yForX
-        self.title = " cos (1 / (M + 2)) * M)"
     }
     
-    override func viewDidLoad() {
+/*    override func viewDidLoad() {
         super.viewDidLoad ()
         yForX = {cos (1 / ($0  + 2)) * $0}
     //  yForX = { sin($0) / cos($0)}
     //  yForX = { 1.0 / $0}
-    }
+    }*/
 }

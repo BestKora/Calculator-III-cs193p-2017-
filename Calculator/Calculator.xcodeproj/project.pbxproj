@@ -10,12 +10,15 @@
 		E418313A1E97569B00022A3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41831391E97569B00022A3F /* AppDelegate.swift */; };
 		E418313F1E97569B00022A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E418313D1E97569B00022A3F /* Main.storyboard */; };
 		E41831411E97569B00022A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41831401E97569B00022A3F /* Assets.xcassets */; };
-		E41831441E97569B00022A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41831421E97569B00022A3F /* LaunchScreen.storyboard */; };
 		E418314F1E97569B00022A3F /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E418314E1E97569B00022A3F /* CalculatorTests.swift */; };
 		E418315A1E97569B00022A3F /* CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41831591E97569B00022A3F /* CalculatorUITests.swift */; };
 		E41831691E975DE300022A3F /* AxesDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41831681E975DE300022A3F /* AxesDrawer.swift */; };
 		E418316C1E975E5F00022A3F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E418316A1E975E5F00022A3F /* GraphView.swift */; };
 		E418316D1E975E5F00022A3F /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E418316B1E975E5F00022A3F /* GraphViewController.swift */; };
+		E4EF8ED91E9A5B13005FB116 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EF8ED71E9A5B13005FB116 /* CalculatorBrain.swift */; };
+		E4EF8EDA1E9A5B13005FB116 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EF8ED81E9A5B13005FB116 /* CalculatorViewController.swift */; };
+		E4EF8EDC1E9A5B8F005FB116 /* Hippo.png in Resources */ = {isa = PBXBuildFile; fileRef = E4EF8EDB1E9A5B8F005FB116 /* Hippo.png */; };
+		E4EF8EDE1E9A5BCF005FB116 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4EF8EDD1E9A5BCF005FB116 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +43,6 @@
 		E41831391E97569B00022A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E418313E1E97569B00022A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E41831401E97569B00022A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E41831431E97569B00022A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E41831451E97569B00022A3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E418314A1E97569B00022A3F /* CalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E418314E1E97569B00022A3F /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
@@ -51,6 +53,10 @@
 		E41831681E975DE300022A3F /* AxesDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxesDrawer.swift; sourceTree = "<group>"; };
 		E418316A1E975E5F00022A3F /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		E418316B1E975E5F00022A3F /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		E4EF8ED71E9A5B13005FB116 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
+		E4EF8ED81E9A5B13005FB116 /* CalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
+		E4EF8EDB1E9A5B8F005FB116 /* Hippo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hippo.png; sourceTree = "<group>"; };
+		E4EF8EDD1E9A5BCF005FB116 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,8 @@
 				E418316A1E975E5F00022A3F /* GraphView.swift */,
 				E418316B1E975E5F00022A3F /* GraphViewController.swift */,
 				E418313D1E97569B00022A3F /* Main.storyboard */,
+				E4EF8ED71E9A5B13005FB116 /* CalculatorBrain.swift */,
+				E4EF8ED81E9A5B13005FB116 /* CalculatorViewController.swift */,
 				E41831671E97570600022A3F /* Supportng Files */,
 			);
 			path = Calculator;
@@ -131,10 +139,11 @@
 		E41831671E97570600022A3F /* Supportng Files */ = {
 			isa = PBXGroup;
 			children = (
+				E4EF8EDB1E9A5B8F005FB116 /* Hippo.png */,
 				E41831451E97569B00022A3F /* Info.plist */,
 				E41831391E97569B00022A3F /* AppDelegate.swift */,
 				E41831401E97569B00022A3F /* Assets.xcassets */,
-				E41831421E97569B00022A3F /* LaunchScreen.storyboard */,
+				E4EF8EDD1E9A5BCF005FB116 /* LaunchScreen.storyboard */,
 			);
 			name = "Supportng Files";
 			sourceTree = "<group>";
@@ -249,8 +258,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E41831441E97569B00022A3F /* LaunchScreen.storyboard in Resources */,
+				E4EF8EDC1E9A5B8F005FB116 /* Hippo.png in Resources */,
 				E41831411E97569B00022A3F /* Assets.xcassets in Resources */,
+				E4EF8EDE1E9A5BCF005FB116 /* LaunchScreen.storyboard in Resources */,
 				E418313F1E97569B00022A3F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,9 +286,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4EF8EDA1E9A5B13005FB116 /* CalculatorViewController.swift in Sources */,
 				E418313A1E97569B00022A3F /* AppDelegate.swift in Sources */,
 				E418316D1E975E5F00022A3F /* GraphViewController.swift in Sources */,
 				E41831691E975DE300022A3F /* AxesDrawer.swift in Sources */,
+				E4EF8ED91E9A5B13005FB116 /* CalculatorBrain.swift in Sources */,
 				E418316C1E975E5F00022A3F /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,14 +333,6 @@
 				E418313E1E97569B00022A3F /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E41831421E97569B00022A3F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E41831431E97569B00022A3F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -437,6 +441,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bestkora.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -450,6 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bestkora.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -530,6 +536,7 @@
 				E41831601E97569B00022A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E41831611E97569B00022A3F /* Build configuration list for PBXNativeTarget "CalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +545,7 @@
 				E41831631E97569B00022A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E41831641E97569B00022A3F /* Build configuration list for PBXNativeTarget "CalculatorUITests" */ = {
 			isa = XCConfigurationList;
@@ -546,6 +554,7 @@
 				E41831661E97569B00022A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

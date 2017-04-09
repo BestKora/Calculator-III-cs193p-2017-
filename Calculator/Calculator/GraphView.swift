@@ -7,7 +7,7 @@ import UIKit
 @IBDesignable
 class GraphView: UIView {
     
-    var yForX: ((Double) -> Double)? { didSet { setNeedsDisplay() } }
+    var yForX: ((Double) -> Double?)? { didSet { setNeedsDisplay() } }
     
     @IBInspectable
     var scale: CGFloat = 50.0 { didSet { setNeedsDisplay() } }
@@ -59,8 +59,8 @@ class GraphView: UIView {
                 xGraph = CGFloat(i) / contentScaleFactor
                 
                 x = Double ((xGraph - origin.x) / scale)
-                y = (yForX)!(x)
-                guard y.isFinite else {continue}
+      //          y = (yForX)!(x)
+                guard let y = (yForX)!(x), y.isFinite else {continue}
                 
                 yGraph = origin.y - CGFloat(y) * scale
                 
