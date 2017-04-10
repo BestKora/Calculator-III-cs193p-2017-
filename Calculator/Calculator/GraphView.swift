@@ -52,7 +52,7 @@ class GraphView: UIView {
         var x, y: Double
         var isFirstPoint = true
         
-        // ---Разрывные точки--------------------------------------
+        // --- Discontinuity --------------------------------------
         var oldYGraph: CGFloat =  0.0
         var disContinuity:Bool {
             return abs( yGraph - oldYGraph) >
@@ -87,6 +87,8 @@ class GraphView: UIView {
             path.stroke()
         }
     }
+/*
+//     Оригинальный вариант без "замороженного" снимка
     
     func originMove(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
@@ -101,6 +103,8 @@ class GraphView: UIView {
         default: break
         }
     }
+    
+//     Оригинальный вариант без "замороженного" снимка
 
     func scale(_ gesture: UIPinchGestureRecognizer) {
         if gesture.state == .changed {
@@ -108,11 +112,73 @@ class GraphView: UIView {
             gesture.scale = 1.0
         }
     }
+*/
 
+    
     func origin(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             origin = gesture.location(in: self)
         }
     }
+
+    private var snapshot:UIView?
+    
+    //     Вариант с "замороженным" снимком
+    
+    func scale(_ gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            snapshot = self.snapshotView(afterScreenUpdates: false)
+            snapshot!.alpha = 0.8
+            self.addSubview(snapshot!)
+        case .changed:
+            let touch = gesture.location(in: self)
+            snapshot!.frame.size.height *= gesture.scale
+            snapshot!.frame.size.width *= gesture.scale
+            snapshot!.frame.origin.x = snapshot!.frame.origin.x * gesture.scale + (1 - gesture.scale) * touch.x
+            snapshot!.frame.origin.y = snapshot!.frame.origin.y * gesture.scale + (1 - gesture.scale) * touch.y
+            gesture.scale = 1.0
+        case .ended:
+            let changedScale = snapshot!.frame.height / self.frame.height
+            scale *= changedScale
+            origin.x = origin.x * changedScale + snapshot!.frame.origin.x
+            origin.y = origin.y * changedScale + snapshot!.frame.origin.y
+            snapshot!.removeFromSuperview()
+            snapshot = nil
+            setNeedsDisplay()
+        default: break
+        }
+    }
+
+    
+//     Вариант с "замороженным" снимком
+     func originMove(_ gesture: UIPanGestureRecognizer) {
+     switch gesture.state {
+     case .began:
+  
+     snapshot = self.snapshotView(afterScreenUpdates: false)
+     snapshot!.alpha = 0.6
+     
+     self.addSubview(snapshot!)
+     case .changed:
+     let translation = gesture.translation(in: self)
+     if translation != CGPoint.zero {
+     snapshot!.center.x += translation.x   // можно двигать
+     snapshot!.center.y += translation.y   // только снимок
+     //  origin.x += translation.x
+     //  origin.y += translation.y
+     gesture.setTranslation(CGPoint.zero, in: self)
+     }
+     case .ended:
+     origin.x += snapshot!.frame.origin.x
+     origin.y += snapshot!.frame.origin.y
+     snapshot!.removeFromSuperview()
+     snapshot = nil
+  
+     setNeedsDisplay()
+     default: break
+     }
+     }
+    
 
 }
