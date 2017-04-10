@@ -18,14 +18,23 @@ class GraphView: UIView {
     @IBInspectable
     var colorAxes: UIColor = UIColor.black { didSet { setNeedsDisplay() } }
 
-    var originSet: CGPoint? { didSet { setNeedsDisplay() } }
-
+    var originRelativeToCenter = CGPoint.zero  { didSet { setNeedsDisplay() } }
+    
+    private var graphCenter: CGPoint {
+        return convert(center, from: superview)
+    }
     private  var origin: CGPoint  {
         get {
-        return originSet ?? CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+            var origin = originRelativeToCenter
+            origin.x += graphCenter.x
+            origin.y += graphCenter.y
+            return origin
         }
         set {
-            originSet = newValue
+            var origin = newValue
+            origin.x -= graphCenter.x
+            origin.y -= graphCenter.y
+            originRelativeToCenter = origin
         }
     }
  
@@ -59,8 +68,8 @@ class GraphView: UIView {
                 xGraph = CGFloat(i) / contentScaleFactor
                 
                 x = Double ((xGraph - origin.x) / scale)
-      //          y = (yForX)!(x)
-                guard let y = (yForX)!(x), y.isFinite else {continue}
+                guard let y = (yForX)!(x),
+                          y.isFinite else {continue}
                 
                 yGraph = origin.y - CGFloat(y) * scale
                 

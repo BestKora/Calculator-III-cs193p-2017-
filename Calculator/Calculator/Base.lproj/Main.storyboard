@@ -155,7 +155,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SvD-hG-5bB">
                                                         <rect key="frame" x="278.5" y="0.0" width="64.5" height="68"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <state key="normal" image="graph">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -542,6 +542,7 @@
                     <connections>
                         <outlet property="display" destination="tti-e2-WQm" id="M0V-HU-OfM"/>
                         <outlet property="displayM" destination="mAu-nr-zhr" id="tbn-ga-Uj4"/>
+                        <outlet property="graphButton" destination="SvD-hG-5bB" id="vn3-bu-dmW"/>
                         <outlet property="history" destination="hIm-fJ-bRK" id="A7y-HA-HlQ"/>
                         <outlet property="tochka" destination="YdB-ns-lqC" id="zsU-9B-rcf"/>
                     </connections>

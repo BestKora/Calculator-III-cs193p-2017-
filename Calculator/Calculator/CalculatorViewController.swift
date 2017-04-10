@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalculatorViewController: UIViewController {
+class CalculatorViewController: UIViewController  {
     
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var history: UILabel!
@@ -20,6 +20,13 @@ class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var displayM: UILabel!
     
+    @IBOutlet weak var graphButton: UIButton!{
+        didSet{
+            graphButton.isEnabled = false
+            graphButton.backgroundColor = UIColor.lightGray
+        }
+    }
+
     let decimalSeparator = formatter.decimalSeparator ?? "."
     var userInTheMiddleOfTyping = false
     
@@ -53,8 +60,11 @@ class CalculatorViewController: UIViewController {
     var displayResult: (result: Double?, isPending: Bool,
                        description: String, error: String?) = (nil, false," ", nil){
         
-        // Наблюдатель Свойства модифицирует три IBOutlet метки
+        // Наблюдатель Свойства модифицирует три IBOutlet метки и кнопку График
         didSet {
+             graphButton.isEnabled = !displayResult.isPending
+             graphButton.backgroundColor =  displayResult.isPending ? UIColor.lightGray : UIColor.white
+
             switch displayResult {
                 case (nil, _, " ", nil) : displayValue = 0
                 case (let result, _,_,nil): displayValue = result
@@ -71,6 +81,20 @@ class CalculatorViewController: UIViewController {
     
     private var brain = CalculatorBrain ()
     private var variableValues = [String: Double]()
+    //-----
+    private let defaults = UserDefaults.standard
+    private struct Keys {
+        static let Program = "CalculatorViewController.Program"
+    }
+    
+    typealias PropertyList = AnyObject
+    
+    private var program: PropertyList? {
+        get { return defaults.object(forKey: Keys.Program) as CalculatorViewController.PropertyList? }
+        set { defaults.set(newValue, forKey: Keys.Program) }
+    }
+
+    //-----
     
     @IBAction func performOPeration(_ sender: UIButton) {
         if userInTheMiddleOfTyping {
@@ -122,6 +146,17 @@ class CalculatorViewController: UIViewController {
     private struct Storyboard{
         static let ShowGraph = "Show Graph"
     }
+    
+    private func prepareGraphVC(_ graphVC : GraphViewController){
+        graphVC.yForX = { [ weak weakSelf = self] x in
+            weakSelf?.variableValues["M"] = x
+            return weakSelf?.brain.evaluate(using: weakSelf?.variableValues).result
+        }
+        graphVC.navigationItem.title =  "y = " +
+            brain.evaluate(using: variableValues).description
+        
+    }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var destination = segue.destination
@@ -131,13 +166,8 @@ class CalculatorViewController: UIViewController {
         if let identifier = segue.identifier,
             identifier == Storyboard.ShowGraph,
             let vc = destination as? GraphViewController {
-            vc.yForX = { [weak weakSelf = self] x in
-                 weakSelf?.variableValues["M"] = x
-                return weakSelf?.brain.evaluate(using: weakSelf?.variableValues).result 
-            }
-            vc.navigationItem.title = "y = " +
-                                      brain.evaluate(using: variableValues).description
-        }
+            prepareGraphVC(vc)
+         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String,
@@ -148,5 +178,40 @@ class CalculatorViewController: UIViewController {
         }
         return false
     }
-
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let savedProgram = program as? [AnyObject]{
+            
+            brain.program = savedProgram as CalculatorBrain.PropertyList
+             displayResult = brain.evaluate(using: variableValues)
+           if let gVC = splitViewController?.viewControllers.last?.contentViewController
+                as? GraphViewController {
+                prepareGraphVC(gVC)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !brain.evaluate(using: variableValues).isPending {
+            
+            program = brain.program
+        }
+    }
 }
+
+extension UIViewController {
+    var contentViewController: UIViewController {
+        if let navcon = self as? UINavigationController {
+            return navcon.visibleViewController ?? self
+        } else {
+            return self
+        }
+    }
+}
+
+

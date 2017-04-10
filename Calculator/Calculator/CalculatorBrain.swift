@@ -107,7 +107,44 @@ struct CalculatorBrain {
             return validator (firstOperand, secondOperand)
         }
     }
+     //--------- PropertyList --------
+    typealias PropertyList = AnyObject
     
+    var program: PropertyList {
+        get {
+            var propertyListProgram = [AnyObject]()
+            for op in internalProgram {
+                switch op {
+                case .operand(let operand):
+                    propertyListProgram.append(operand as AnyObject)
+                case .operation(let symbol):
+                    propertyListProgram.append(symbol as AnyObject)
+                case .variable (let named):
+                    propertyListProgram.append(named as AnyObject)
+                }
+            }
+            return propertyListProgram as CalculatorBrain.PropertyList
+        }
+        set {
+            clear()
+            if let arrayOfOps = newValue as? [AnyObject] {
+                for op in arrayOfOps {
+                    if let operand = op as? Double {
+                        internalProgram.append(OpStack.operand(operand))
+                    } else if let symbol = op as? String {
+                        if operations[symbol] != nil {
+                            // symbol - это операция
+                            internalProgram.append(OpStack.operation(symbol))
+                        } else {
+                            // symbol - это переменная
+                            internalProgram.append(OpStack.variable(symbol))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //-------------------------------------------------------------------------
     // MARK: - evaluate
     
