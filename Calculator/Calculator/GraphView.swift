@@ -39,6 +39,7 @@ class GraphView: UIView {
     }
  
    private var axesDrawer = AxesDrawer()
+    
     override func draw(_ rect: CGRect) {
         axesDrawer.contentScaleFactor = contentScaleFactor
         axesDrawer.color = colorAxes
@@ -89,7 +90,6 @@ class GraphView: UIView {
     }
 /*
 //     Оригинальный вариант без "замороженного" снимка
-    
     func originMove(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .ended: fallthrough
@@ -103,9 +103,8 @@ class GraphView: UIView {
         default: break
         }
     }
-    
-//     Оригинальный вариант без "замороженного" снимка
 
+//     Оригинальный вариант без "замороженного" снимка
     func scale(_ gesture: UIPinchGestureRecognizer) {
         if gesture.state == .changed {
             scale *= gesture.scale
@@ -113,7 +112,6 @@ class GraphView: UIView {
         }
     }
 */
-
     
     func origin(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
@@ -122,9 +120,8 @@ class GraphView: UIView {
     }
 
     private var snapshot:UIView?
-    
+
     //     Вариант с "замороженным" снимком
-    
     func scale(_ gesture: UIPinchGestureRecognizer) {
         switch gesture.state {
         case .began:
@@ -135,8 +132,10 @@ class GraphView: UIView {
             let touch = gesture.location(in: self)
             snapshot!.frame.size.height *= gesture.scale
             snapshot!.frame.size.width *= gesture.scale
-            snapshot!.frame.origin.x = snapshot!.frame.origin.x * gesture.scale + (1 - gesture.scale) * touch.x
-            snapshot!.frame.origin.y = snapshot!.frame.origin.y * gesture.scale + (1 - gesture.scale) * touch.y
+            snapshot!.frame.origin.x = snapshot!.frame.origin.x * gesture.scale +
+                                            (1 - gesture.scale) * touch.x
+            snapshot!.frame.origin.y = snapshot!.frame.origin.y * gesture.scale +
+                                            (1 - gesture.scale) * touch.y
             gesture.scale = 1.0
         case .ended:
             let changedScale = snapshot!.frame.height / self.frame.height
@@ -150,35 +149,34 @@ class GraphView: UIView {
         }
     }
 
-    
-//     Вариант с "замороженным" снимком
-     func originMove(_ gesture: UIPanGestureRecognizer) {
-     switch gesture.state {
-     case .began:
-  
-     snapshot = self.snapshotView(afterScreenUpdates: false)
-     snapshot!.alpha = 0.6
-     
-     self.addSubview(snapshot!)
-     case .changed:
-     let translation = gesture.translation(in: self)
-     if translation != CGPoint.zero {
-     snapshot!.center.x += translation.x   // можно двигать
-     snapshot!.center.y += translation.y   // только снимок
-     //  origin.x += translation.x
-     //  origin.y += translation.y
-     gesture.setTranslation(CGPoint.zero, in: self)
-     }
-     case .ended:
-     origin.x += snapshot!.frame.origin.x
-     origin.y += snapshot!.frame.origin.y
-     snapshot!.removeFromSuperview()
-     snapshot = nil
-  
-     setNeedsDisplay()
-     default: break
-     }
-     }
-    
 
+//     Вариант с "замороженным" снимком
+    func originMove(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            
+            snapshot = self.snapshotView(afterScreenUpdates: false)
+            snapshot!.alpha = 0.6
+            
+            self.addSubview(snapshot!)
+        case .changed:
+            let translation = gesture.translation(in: self)
+            if translation != CGPoint.zero {
+                snapshot!.center.x += translation.x   // можно двигать
+                snapshot!.center.y += translation.y   // только снимок
+                //  origin.x += translation.x
+                //  origin.y += translation.y
+                gesture.setTranslation(CGPoint.zero, in: self)
+            }
+        case .ended:
+            origin.x += snapshot!.frame.origin.x
+            origin.y += snapshot!.frame.origin.y
+            snapshot!.removeFromSuperview()
+            snapshot = nil
+            
+            setNeedsDisplay()
+        default: break
+        }
+    }
+ 
 }

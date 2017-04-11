@@ -59,11 +59,12 @@ class CalculatorViewController: UIViewController  {
     
     var displayResult: (result: Double?, isPending: Bool,
                        description: String, error: String?) = (nil, false," ", nil){
+// Наблюдатель Свойства модифицирует три IBOutlet метки и кнопку График
         
-        // Наблюдатель Свойства модифицирует три IBOutlet метки и кнопку График
         didSet {
              graphButton.isEnabled = !displayResult.isPending
-             graphButton.backgroundColor =  displayResult.isPending ? UIColor.lightGray : UIColor.white
+             graphButton.backgroundColor =
+                               displayResult.isPending ? UIColor.lightGray : UIColor.white
 
             switch displayResult {
                 case (nil, _, " ", nil) : displayValue = 0
@@ -81,7 +82,9 @@ class CalculatorViewController: UIViewController  {
     
     private var brain = CalculatorBrain ()
     private var variableValues = [String: Double]()
-    //-----
+    
+    // MARK: - UserDefaults
+    
     private let defaults = UserDefaults.standard
     private struct Keys {
         static let Program = "CalculatorViewController.Program"
@@ -90,11 +93,11 @@ class CalculatorViewController: UIViewController  {
     typealias PropertyList = AnyObject
     
     private var program: PropertyList? {
-        get { return defaults.object(forKey: Keys.Program) as CalculatorViewController.PropertyList? }
+        get { return defaults.object(forKey: Keys.Program) as PropertyList? }
         set { defaults.set(newValue, forKey: Keys.Program) }
     }
 
-    //-----
+    //MARK: - performOperation
     
     @IBAction func performOPeration(_ sender: UIButton) {
         if userInTheMiddleOfTyping {
@@ -157,7 +160,6 @@ class CalculatorViewController: UIViewController  {
         
     }
 
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var destination = segue.destination
         if let navigationController = destination as? UINavigationController {
@@ -178,16 +180,17 @@ class CalculatorViewController: UIViewController  {
         }
         return false
     }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let savedProgram = program as? [AnyObject]{
+        if let savedProgram = program as? [Any]{
             
-            brain.program = savedProgram as CalculatorBrain.PropertyList
-             displayResult = brain.evaluate(using: variableValues)
-           if let gVC = splitViewController?.viewControllers.last?.contentViewController
+            brain.program = savedProgram as PropertyList
+            displayResult = brain.evaluate(using: variableValues)
+            if let gVC = splitViewController?.viewControllers.last?.contentViewController
                 as? GraphViewController {
                 prepareGraphVC(gVC)
             }

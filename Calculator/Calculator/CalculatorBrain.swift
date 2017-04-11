@@ -112,23 +112,23 @@ struct CalculatorBrain {
     
     var program: PropertyList {
         get {
-            var propertyListProgram = [AnyObject]()
+            var propertyListProgram = [Any]()
             for op in internalProgram {
                 switch op {
                 case .operand(let operand):
-                    propertyListProgram.append(operand as AnyObject)
+                    propertyListProgram.append(operand as Any)
                 case .operation(let symbol):
-                    propertyListProgram.append(symbol as AnyObject)
+                    propertyListProgram.append(symbol as Any)
                 case .variable (let named):
-                    propertyListProgram.append(named as AnyObject)
+                    propertyListProgram.append(named as Any)
                 }
             }
-            return propertyListProgram as CalculatorBrain.PropertyList
+            return propertyListProgram as PropertyList
         }
         set {
             clear()
-            if let arrayOfOps = newValue as? [AnyObject] {
-                for op in arrayOfOps {
+            if let arrayOfAny = newValue as? [Any] {
+                for op in arrayOfAny {
                     if let operand = op as? Double {
                         internalProgram.append(OpStack.operand(operand))
                     } else if let symbol = op as? String {
