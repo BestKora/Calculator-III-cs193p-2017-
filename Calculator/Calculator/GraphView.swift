@@ -125,11 +125,14 @@ class GraphView: UIView {
     func scale(_ gesture: UIPinchGestureRecognizer) {
         switch gesture.state {
         case .began:
+            
             snapshot = self.snapshotView(afterScreenUpdates: false)
             snapshot!.alpha = 0.8
             self.addSubview(snapshot!)
+            
         case .changed:
-            let touch = gesture.location(in: self)
+            let touch = CGPoint (x:graphCenter.x + originRelativeToCenter.x,
+                                 y:graphCenter.y + originRelativeToCenter.y)
             snapshot!.frame.size.height *= gesture.scale
             snapshot!.frame.size.width *= gesture.scale
             snapshot!.frame.origin.x = snapshot!.frame.origin.x * gesture.scale +
@@ -137,14 +140,15 @@ class GraphView: UIView {
             snapshot!.frame.origin.y = snapshot!.frame.origin.y * gesture.scale +
                                             (1 - gesture.scale) * touch.y
             gesture.scale = 1.0
+            
         case .ended:
             let changedScale = snapshot!.frame.height / self.frame.height
             scale *= changedScale
-            origin.x = origin.x * changedScale + snapshot!.frame.origin.x
-            origin.y = origin.y * changedScale + snapshot!.frame.origin.y
+            
             snapshot!.removeFromSuperview()
             snapshot = nil
             setNeedsDisplay()
+            
         default: break
         }
     }
@@ -157,8 +161,8 @@ class GraphView: UIView {
             
             snapshot = self.snapshotView(afterScreenUpdates: false)
             snapshot!.alpha = 0.6
-            
             self.addSubview(snapshot!)
+            
         case .changed:
             let translation = gesture.translation(in: self)
             if translation != CGPoint.zero {
@@ -171,10 +175,11 @@ class GraphView: UIView {
         case .ended:
             origin.x += snapshot!.frame.origin.x
             origin.y += snapshot!.frame.origin.y
+            
             snapshot!.removeFromSuperview()
             snapshot = nil
-            
             setNeedsDisplay()
+            
         default: break
         }
     }
